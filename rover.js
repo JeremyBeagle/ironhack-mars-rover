@@ -189,12 +189,11 @@
   //driver
   var grid = genArray(10);
 
+  console.log("Current Location: " + rover.position);
+  showMap(grid);
+
   do{
       var proceed = 'n'; //control variable
-
-      console.log("Current Location: " + rover.position);
-      showMap(grid);
-
       var commands = prompt("Enter a series of commands: ");
 
       for (var i = 0; i < commands.length; i++){
@@ -213,8 +212,19 @@
       }
       console.log("New Location: " + rover.position +"   Facing: " + rover.direction);
       showMap(grid);
-      var proceed = prompt("continue (y/n)? ");
+
+      while (proceed == 'n') {
+        var proceed = prompt("Continue Entering Commands? (y/n)");
+        
+        if (proceed != 'y' && proceed != 'n') { //test for invalid input
+          alert("Invalid input!");
+          proceed = 'n';  
+        }
+        else if (proceed == 'n') {
+          break;
+        }
+      }
   }
-  while(proceed == 'Y' || proceed == 'y');
+  while(proceed == 'y');
 
   console.log("Session has ended.");
