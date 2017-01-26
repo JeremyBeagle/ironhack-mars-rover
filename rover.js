@@ -189,7 +189,7 @@
   //driver
   var grid = genArray(10);
 
-  console.log("Current Location: " + rover.position);
+  console.log("Starting Location: " + rover.position +"   Facing: " + rover.direction);
   showMap(grid);
 
   do{
@@ -215,10 +215,10 @@
 
       while (proceed == 'n') {
         var proceed = prompt("Continue Entering Commands? (y/n)");
-        
+
         if (proceed != 'y' && proceed != 'n') { //test for invalid input
           alert("Invalid input!");
-          proceed = 'n';  
+          proceed = 'n';
         }
         else if (proceed == 'n') {
           break;
