@@ -1,4 +1,3 @@
-
   var rover = {
     position: [0,0], //coordinates on the grid
     direction: 'n', //compass direction
@@ -99,7 +98,7 @@
 
       case 'n':
         if ((rover.position[1] - 1 < 0)){
-          alert("You have gone too far!");
+          rover.position[1] = 9;
           grid[rover.position[0]][rover.position[1]] = "R";
           break;
         }
@@ -111,7 +110,7 @@
 
       case 'e':
         if ((rover.position[0] - 1 < 0)){
-          alert("You have gone too far!");
+          rover.position[0] = 9;
           grid[rover.position[0]][rover.position[1]] = "R";
           break;
         }
@@ -123,7 +122,7 @@
 
       case 's':
         if ((parseInt(rover.position[1]) + 1 >= 10)){
-          alert("You have gone too far!");
+          rover.position[1] = 0;
           grid[rover.position[0]][rover.position[1]] = "R";
         }
         else {
@@ -135,7 +134,7 @@
 
       case 'w':
         if ((parseInt(rover.position[0]) + 1 >= 10)){
-          alert("You have gone too far!");
+          rover.position[0] = 0;
           grid[rover.position[0]][rover.position[1]] = "R";
           break;
         }
