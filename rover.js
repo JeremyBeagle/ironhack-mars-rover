@@ -3,17 +3,18 @@
     direction: 'n', //compass direction
   };
 
-function randInteger() {
+  //randInteger: generates a random integer
+  function randInteger() {
   return (parseInt(Math.random() * 10));
 }
 
-function genObstacle(grid) {
+  //genObstacle: generates one obstacle and places it in a random location on the grid
+  function genObstacle(grid) {
   grid[randInteger()][randInteger()] = "X";
 }
 
-
   //genArray: generates a 10 x 10 array
-  //Obstacles are randomly generated, placed, and set to "X"
+  //At least five obstacles are randomly generated, placed, and set to "X"
   //Open spaces are set to "_"
   //The Rover's current position is set to "R"
   //Takes one dimension as an argument
@@ -43,8 +44,8 @@ function genObstacle(grid) {
     return grid;
   }
 
-  //showMap: displays the grid with the rover's current position for the user.
-  //Takes a 2-dimension array as an argument
+  //showMap: displays the grid with the rover's current position and the position of the obstacles.
+  //Takes a 2-dimensional array as an argument
   //it seemed more intuitive to display [0.0] as being in the bottom left-hand corner like in a cartesian plane
   function showMap(grid){
     var storage = [];
@@ -58,7 +59,7 @@ function genObstacle(grid) {
     }
   }
 
-  //Forward: advances the rover forward in the direction and distance specified by the user
+  //Forward: advances the rover forward one space in the specified direction
   function Forward(rover, grid){
     grid[rover.position[0]][rover.position[1]] = "_";
     switch(rover.direction) {
@@ -73,10 +74,12 @@ function genObstacle(grid) {
           if (grid[rover.position[0]][rover.position[1] + 1] == "X") {
             alert("You've encountered an obstacle!");
             grid[rover.position[0]][rover.position[1]] = "R";
+            return -1; //flags the program to stop processing further commands
           }
           else {
           rover.position[1]++;
           grid[rover.position[0]][rover.position[1]] = "R";
+          return 1;
           }
         }
         break;
@@ -91,10 +94,12 @@ function genObstacle(grid) {
           if (grid[rover.position[0] + 1][rover.position[1]] == "X") {
             alert("You've encountered an obstacle!");
             grid[rover.position[0]][rover.position[1]] = "R";
+            return -1;
           }
           else {
             rover.position[0]++;
             grid[rover.position[0]][rover.position[1]] = "R";
+            return 1;
           }
         }
         break;
@@ -108,10 +113,12 @@ function genObstacle(grid) {
           if (grid[rover.position[0]][rover.position[1] - 1] == "X") {
             alert("You've encountered an obstacle!");
             grid[rover.position[0]][rover.position[1]] = "R";
+            return -1;
           }
           else {
             rover.position[1]--;
             grid[rover.position[0]][rover.position[1]] = "R";
+            return 1;
           }
           break;
         }
@@ -127,17 +134,19 @@ function genObstacle(grid) {
           if (grid[rover.position[0] - 1][rover.position[1]] == "X") {
             alert("You've encountered an obstacle!");
             grid[rover.position[0]][rover.position[1]] = "R";
+            return -1;
           }
           else {
             rover.position[0]--;
             grid[rover.position[0]][rover.position[1]] = "R";
+            return 1;
           }
         }
         break;
     }
   }
 
-  //Reverse: moves the rover backwards by the distance specified by the user, opposite the specified direction
+  //Reverse: moves the rover backwards one space in the specified direction
   function Reverse(rover, grid){
     grid[rover.position[0]][rover.position[1]] = "_";
     switch(rover.direction) {
@@ -149,8 +158,16 @@ function genObstacle(grid) {
           break;
         }
         else {
-          rover.position[1]--;
-          grid[rover.position[0]][rover.position[1]] = "R";
+          if (grid[rover.position[0]][rover.position[1] - 1] == "X") {
+            alert("You've encountered an obstacle!");
+            grid[rover.position[0]][rover.position[1]] = "R";
+            return -1;
+          }
+          else {
+            rover.position[1]--;
+            grid[rover.position[0]][rover.position[1]] = "R";
+            return 1;
+          }
         }
         break;
 
@@ -161,8 +178,16 @@ function genObstacle(grid) {
           break;
         }
         else {
-        rover.position[0]--;
-        grid[rover.position[0]][rover.position[1]] = "R";
+          if (grid[rover.position[0] - 1][rover.position[1]] == "X") {
+            alert("You've encountered an obstacle!");
+            grid[rover.position[0]][rover.position[1]] = "R";
+            return -1;
+          }
+          else {
+            rover.position[0]--;
+            grid[rover.position[0]][rover.position[1]] = "R";
+            return 1;
+          }
         }
         break;
 
@@ -172,8 +197,16 @@ function genObstacle(grid) {
           grid[rover.position[0]][rover.position[1]] = "R";
         }
         else {
-          rover.position[1]++;
-          grid[rover.position[0]][rover.position[1]] = "R";
+          if (grid[rover.position[0]][rover.position[1] + 1] == "X") {
+            alert("You've encountered an obstacle!");
+            grid[rover.position[0]][rover.position[1]] = "R";
+            return -1;
+          }
+          else {
+            rover.position[1]++;
+            grid[rover.position[0]][rover.position[1]] = "R";
+            return 1;
+          }
           break;
         }
         break;
@@ -185,13 +218,22 @@ function genObstacle(grid) {
           break;
         }
         else{
-        rover.position[0]++;
-        grid[rover.position[0]][rover.position[1]] = "R";
+          if (grid[rover.position[0] + 1][rover.position[1]] == "X") {
+            alert("You've encountered an obstacle!");
+            grid[rover.position[0]][rover.position[1]] = "R";
+            return -1;
+          }
+          else {
+            rover.position[0]++;
+            grid[rover.position[0]][rover.position[1]] = "R";
+            return 1;
+          }
         }
         break;
     }
   }
 
+  //turnRight: rotates the rover's orientation 90 degrees clockwise
   function turnRight(rover){
     switch(rover.direction){
       case 'n':
@@ -212,6 +254,7 @@ function genObstacle(grid) {
     }
   }
 
+  //turnLeft: rotates the rover's orientation 90 degrees counterclockwise
   function turnLeft(rover){
     switch(rover.direction){
       case 'n':
@@ -239,15 +282,17 @@ function genObstacle(grid) {
   showMap(grid);
 
   do{
-      var proceed = 'n'; //control variable
+      var proceed = 'n'; //control variable for do-while loop
       var commands = prompt("Enter a series of commands: ");
+      var crash = 1; //signals a crash and ceases processing further commands
+                     //'-1' signals a crash and '1' signals the absence of a crash
 
-      for (var i = 0; i < commands.length; i++){
+      for (var i = 0; i < commands.length && crash == 1; i++){ //for loop used to process the string of commands 
         if (commands[i] == "f" ) {
-          Forward(rover, grid);
+          crash = Forward(rover, grid);
         }
         else if (commands[i] == "b" ) {
-          Reverse(rover, grid);
+          crash = Reverse(rover, grid);
         }
         else if (commands[i] == "l" ) {
           turnLeft(rover);
@@ -256,13 +301,14 @@ function genObstacle(grid) {
           turnRight(rover);
         }
       }
-      console.log("New Location: " + rover.position +"   Facing: " + rover.direction);
+      
+      console.log("New Location: " + rover.position +"   Facing: " + rover.direction); //provide updates to the user
       showMap(grid);
 
-      while (proceed == 'n') {
+      while (proceed == 'n') { //test for valid input 
         var proceed = prompt("Continue Entering Commands? (y/n)");
 
-        if (proceed != 'y' && proceed != 'n') { //test for invalid input
+        if (proceed != 'y' && proceed != 'n') { 
           alert("Invalid input!");
           proceed = 'n';
         }
