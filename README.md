@@ -1,7 +1,7 @@
 # Ironhack: Mars Rover Assignment
 
 ## Description
-This program simulates a lunar rover's movement over a 10 x 10 grid. The position of the rover is identified by a "R" in the grid. The grid contains at least five randomly placed obstacles that the rover cannot traverse. The user interacts with the rover by entering a series of commands at the prompt and pressing the enter key.
+This program simulates a lunar rover's movement over a 10 x 10 grid. The position of the rover is identified by an "R" in the grid. The grid contains at least five randomly placed obstacles that the rover cannot traverse. The user interacts with the rover by entering a series of commands at the prompt and pressing the enter key.
 
 ### Commands
 
