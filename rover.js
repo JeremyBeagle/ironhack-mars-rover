@@ -3,7 +3,19 @@
     direction: 'n', //compass direction
   };
 
-  //genArray: generates an array with all spaces initialized to "_" and "R" in the space where the rover is currently located.
+function randInteger() {
+  return (parseInt(Math.random() * 10));
+}
+
+function genObstacle(grid) {
+  grid[randInteger()][randInteger()] = "X";
+}
+
+
+  //genArray: generates a 10 x 10 array
+  //Obstacles are randomly generated, placed, and set to "X"
+  //Open spaces are set to "_"
+  //The Rover's current position is set to "R"
   //Takes one dimension as an argument
   function genArray(dimension){
 
@@ -14,6 +26,16 @@
       for(var j = 0; j < dimension; j++){ //lnitialize each element in every array to '_'
         grid[i][j] = "_";
       }
+    }
+
+    //generate random number greater than 4 to represent the number of obstacles
+    var randNumber = randInteger();
+    while (randNumber < 5) {
+      randNumber = randInteger();
+    }
+
+    for (i = 0; i <= randNumber; i++) {
+      genObstacle(grid);
     }
 
     grid[rover.position[0]][rover.position[1]] = "R"; //let "R" represent current rover position on map
@@ -48,8 +70,14 @@
           break;
         }
         else {
+          if (grid[rover.position[0]][rover.position[1] + 1] == "X") {
+            alert("You've encountered an obstacle!");
+            grid[rover.position[0]][rover.position[1]] = "R";
+          }
+          else {
           rover.position[1]++;
           grid[rover.position[0]][rover.position[1]] = "R";
+          }
         }
         break;
 
@@ -60,8 +88,14 @@
           break;
         }
         else {
-        rover.position[0]++;
-        grid[rover.position[0]][rover.position[1]] = "R";
+          if (grid[rover.position[0] + 1][rover.position[1]] == "X") {
+            alert("You've encountered an obstacle!");
+            grid[rover.position[0]][rover.position[1]] = "R";
+          }
+          else {
+            rover.position[0]++;
+            grid[rover.position[0]][rover.position[1]] = "R";
+          }
         }
         break;
 
@@ -71,8 +105,14 @@
           grid[rover.position[0]][rover.position[1]] = "R";
         }
         else {
-          rover.position[1]--;
-          grid[rover.position[0]][rover.position[1]] = "R";
+          if (grid[rover.position[0]][rover.position[1] - 1] == "X") {
+            alert("You've encountered an obstacle!");
+            grid[rover.position[0]][rover.position[1]] = "R";
+          }
+          else {
+            rover.position[1]--;
+            grid[rover.position[0]][rover.position[1]] = "R";
+          }
           break;
         }
         break;
@@ -84,8 +124,14 @@
           break;
         }
         else{
-        rover.position[0]--;
-        grid[rover.position[0]][rover.position[1]] = "R";
+          if (grid[rover.position[0] - 1][rover.position[1]] == "X") {
+            alert("You've encountered an obstacle!");
+            grid[rover.position[0]][rover.position[1]] = "R";
+          }
+          else {
+            rover.position[0]--;
+            grid[rover.position[0]][rover.position[1]] = "R";
+          }
         }
         break;
     }
