@@ -316,6 +316,8 @@ do {
         }
       }
 
+      crash = 1;
+
       for (var i = 0; i < r2Commands.length && crash == 1; i++){ //for loop used to process the string of commands
         if (r2Commands[i] == "f" ) {
           crash = Forward(rover2, grid);
